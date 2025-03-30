@@ -46,6 +46,9 @@ def get_zotero_corpus(id:str,key:str) -> list[dict]:
     for c in corpus:
         paths = [get_collection_path(col) for col in c['data']['collections']]
         c['paths'] = paths
+
+    corpus = [c for c in corpus if any('AI' in path for path in c['paths'])]
+    
     return corpus
 
 def filter_corpus(corpus:list[dict], pattern:str) -> list[dict]:
