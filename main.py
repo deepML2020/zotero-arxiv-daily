@@ -16,6 +16,22 @@ from paper import ArxivPaper
 from llm import set_global_llm
 import feedparser
 
+# def get_zotero_corpus(id:str,key:str) -> list[dict]:
+#     zot = zotero.Zotero(id, 'user', key)
+#     collections = zot.everything(zot.collections())
+#     collections = {c['key']:c for c in collections}
+#     corpus = zot.everything(zot.items(itemType='conferencePaper || journalArticle || preprint'))
+#     corpus = [c for c in corpus if c['data']['abstractNote'] != '']
+#     def get_collection_path(col_key:str) -> str:
+#         if p := collections[col_key]['data']['parentCollection']:
+#             return get_collection_path(p) + ' / ' + collections[col_key]['data']['name']
+#         else:
+#             return collections[col_key]['data']['name']
+#     for c in corpus:
+#         paths = [get_collection_path(col) for col in c['data']['collections']]
+#         c['paths'] = paths
+#     return corpus
+
 def get_zotero_corpus(id:str,key:str) -> list[dict]:
     zot = zotero.Zotero(id, 'user', key)
     collections = zot.everything(zot.collections())
@@ -111,6 +127,10 @@ if __name__ == '__main__':
     add_argument('--sender', type=str, help='Sender email address')
     add_argument('--receiver', type=str, help='Receiver email address')
     add_argument('--sender_password', type=str, help='Sender email password')
+    # customer
+    add_argument('--package', type=str, help='package name')
+
+    
     add_argument(
         "--use_llm_api",
         type=bool,
